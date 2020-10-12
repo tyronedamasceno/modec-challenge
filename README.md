@@ -8,6 +8,8 @@ You can find a postman collection for the API and do some tests [on this page](h
 
 The API was deployed in a cloud service, the base URL is https://modec-api.herokuapp.com/ and the postman collection is already doing requests for it.
 
+For example, you can do a POST request for https://modec-api.herokuapp.com/api/v1/vessels to create a new vessel!
+
 PS: *Note that the first request may take a while because it is a free service, so it goes to sleep mode when is not being used.*
 
 ## How to execute API?
