@@ -22,7 +22,7 @@ You can use the provided credentials to access the admin interface on `https://l
 
 ## Documentation && try it out!
 
-You can find a postman collection for the API and do some tests [on this page](...)
+You can find a postman collection for the API and do some tests [on this page](https://www.getpostman.com/collections/f31003e88f3a5ae772ca)
 
 Also, you can run unit automated tests running the following command
 
