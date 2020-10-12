@@ -21,7 +21,9 @@ class Equipment(models.Model):
         default='ACTIVE'
     )
 
-    vessel = models.ForeignKey(Vessel, on_delete=models.CASCADE)
+    vessel = models.ForeignKey(
+        Vessel, on_delete=models.CASCADE, related_name='equipments'
+    )
 
     def __str__(self):
         return f'Equipment {self.code} - {self.status}'

@@ -13,4 +13,9 @@ urlpatterns = [
         EquipmentViewSet.as_view({"post": "create"}),
         name="equipments-create",
     ),
+    path(
+        "vessels/<vessel>/active-equips",
+        EquipmentViewSet.as_view({"get": "list"}),
+        name="equipments-by-vessel"
+    ),
 ]
