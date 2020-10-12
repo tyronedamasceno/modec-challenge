@@ -88,13 +88,24 @@ WSGI_APPLICATION = 'modec.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get('DB_NAME', 'NAME'),
+            'USER': os.environ.get('DB_USER', 'USER'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', 'PASSWORD'),
+            'HOST': os.environ.get('DB_HOST', 'HOST'),
+            'PORT': os.environ.get('DB_PORT', 'PORT'),
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
