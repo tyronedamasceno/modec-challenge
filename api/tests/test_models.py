@@ -14,3 +14,9 @@ class VesselsTestCase(TestCase):
 
         with self.assertRaises(IntegrityError):
             Vessel.objects.create(code="MV102")
+
+    def test_vessel_printing_name_includes_code(self):
+        code = "MV102"
+        vessel = Vessel.objects.create(code=code)
+
+        self.assertIn(code, str(vessel))
