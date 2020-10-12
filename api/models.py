@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+
+class Vessel(models.Model):
+    code = models.CharField('Vessel Code', max_length=20, unique=True)
