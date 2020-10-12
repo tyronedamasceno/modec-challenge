@@ -1,7 +1,9 @@
+from django.urls import reverse
+
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 
-VESSEL_VIEW_URL = ...
+VESSEL_VIEW_URL = reverse('vessels-create')
 
 
 class VesselViewTestCase(APITestCase):
