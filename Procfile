@@ -1,2 +1,2 @@
-web: gunicorn insurance_risk.wsgi
+web: gunicorn modec.wsgi
 
