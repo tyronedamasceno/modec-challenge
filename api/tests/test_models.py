@@ -47,3 +47,11 @@ class EquipmentTestCase(TestCase):
         with self.assertRaises(IntegrityError):
             Equipment.objects.create(
                 code="5310B9D7", name="compressor", location="Brazil")
+
+    def test_inactivate_equipment_method(self):
+        equip = Equipment.objects.create(
+            code="5310B9D7", name="compressor", location="Brazil",
+            vessel=self.vessel)
+
+        equip.inactivate()
+        self.assertEqual(equip.status, EquipmentStatus.inactive)

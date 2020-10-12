@@ -23,3 +23,7 @@ class Equipment(models.Model):
 
     def __str__(self):
         return f'Equipment {self.code} - {self.status.name}'
+
+    def inactivate(self):
+        self.status = EquipmentStatus.inactive
+        self.save()
