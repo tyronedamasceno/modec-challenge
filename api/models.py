@@ -7,6 +7,9 @@ class Vessel(models.Model):
     def __str__(self):
         return f'Vessel {self.code}'
 
+    def active_equipments(self):
+        return self.equipments.filter(status="ACTIVE")
+
 
 class Equipment(models.Model):
     STATUS_CHOICES = (

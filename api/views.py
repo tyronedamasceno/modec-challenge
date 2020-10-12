@@ -20,7 +20,5 @@ class EquipmentViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         vessel_code = kwargs.get("vessel")
         vessel = get_object_or_404(Vessel, code=vessel_code)
 
-        queryset = vessel.equipments.filter(status="ACTIVE")
-
-        serializer = self.get_serializer(queryset, many=True)
+        serializer = self.get_serializer(vessel.active_equipments(), many=True)
         return Response(serializer.data)

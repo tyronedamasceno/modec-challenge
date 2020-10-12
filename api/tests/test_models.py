@@ -21,6 +21,15 @@ class VesselsTestCase(TestCase):
 
         self.assertIn(code, str(vessel))
 
+    def test_get_active_equipments_method(self):
+        vessel = Vessel.objects.create(code="xpto")
+        Equipment.objects.create(
+            code="5310B9D7", name="compressor", location="Brazil",
+            vessel=vessel)
+
+        active_equips = vessel.active_equipments()
+        self.assertEqual(len(active_equips), 1)
+
 
 class EquipmentTestCase(TestCase):
     def setUp(self):
