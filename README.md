@@ -32,4 +32,4 @@ Also, you can run unit automated tests running the following command
 
 I hope you enjoy it.
 
-**Feel free** to contact me any time on telegram [*@tyronedamasceno*](t.me/tyronedamasceno) or *tyronedamasceno@gmail.com*
+**Feel free** to contact me any time on telegram [*@tyronedamasceno*](https://t.me/tyronedamasceno) or *tyronedamasceno@gmail.com*
