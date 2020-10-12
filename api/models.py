@@ -1,7 +1,5 @@
 from django.db import models
 
-from api.enums import EquipmentStatus
-
 
 class Vessel(models.Model):
     code = models.CharField('Vessel code', max_length=20, primary_key=True)
@@ -11,12 +9,16 @@ class Vessel(models.Model):
 
 
 class Equipment(models.Model):
+    STATUS_CHOICES = (
+        ('ACTIVE', 'Active'),
+        ('INACTIVE', 'Inactive')
+    )
     code = models.CharField('Equipment code', max_length=20, primary_key=True)
     name = models.CharField('Equipment name', max_length=50)
     location = models.CharField('Equipment location', max_length=50)
     status = models.CharField(
-        'Equipment status', max_length=20, choices=EquipmentStatus.choices(),
-        default=EquipmentStatus.active
+        'Equipment status', max_length=20, choices=STATUS_CHOICES,
+        default='ACTIVE'
     )
 
     vessel = models.ForeignKey(Vessel, on_delete=models.CASCADE)
@@ -25,5 +27,5 @@ class Equipment(models.Model):
         return f'Equipment {self.code} - {self.status.name}'
 
     def inactivate(self):
-        self.status = EquipmentStatus.inactive
+        self.status = 'INACTIVE'
         self.save()

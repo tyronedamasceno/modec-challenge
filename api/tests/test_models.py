@@ -1,7 +1,6 @@
 from django.db import IntegrityError
 from django.test import TestCase
 
-from api.enums import EquipmentStatus
 from api.models import Vessel, Equipment
 
 
@@ -54,4 +53,4 @@ class EquipmentTestCase(TestCase):
             vessel=self.vessel)
 
         equip.inactivate()
-        self.assertEqual(equip.status, EquipmentStatus.inactive)
+        self.assertEqual(equip.status, 'INACTIVE')

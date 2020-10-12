@@ -3,7 +3,10 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 
+from api.models import Vessel
+
 VESSEL_VIEW_URL = reverse('vessels-create')
+EQUIPMENT_VIEW_URL = reverse('equipments-create')
 
 
 class VesselViewTestCase(APITestCase):
@@ -16,4 +19,24 @@ class VesselViewTestCase(APITestCase):
 
     def test_successful_creating_vessel_endpoint(self):
         response = self.client.post(VESSEL_VIEW_URL, {'code': 'MV102'})
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+
+class EquipmentViewTestCase(APITestCase):
+    def setUp(self):
+        self.client = APIClient()
+        self.vessel = Vessel.objects.create(code="MV102")
+
+    def test_creating_equipment_endpoint_requires_valid_payload(self):
+        response = self.client.post(EQUIPMENT_VIEW_URL, {})
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_successful_creating_equipment_endpoint(self):
+        payload = {
+            'code': '5310B9D7', 'name': 'compressor', 'location': 'Brazil',
+            'vessel': self.vessel.code
+        }
+        response = self.client.post(EQUIPMENT_VIEW_URL, payload)
+
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
