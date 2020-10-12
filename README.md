@@ -2,9 +2,17 @@
 
 Application to management of an FPSO equipment.
 
+## Documentation && try it out!
+
+You can find a postman collection for the API and do some tests [on this page](https://www.getpostman.com/collections/f31003e88f3a5ae772ca)
+
+The API was deployed in a cloud service, the base URL is https://modec-api.herokuapp.com/ and the postman collection is already doing requests for it.
+
+PS: *Note that the first request may take a while because it is a free service, so it goes to sleep mode when is not being used.*
+
 ## How to execute API?
 
-The recommendation is to user Docker and docker-compose (if you need to install it on Ubuntu, I suggest [this tutorial](https://linuxize.com/post/how-to-install-and-use-docker-compose-on-ubuntu-18-04/))
+If you want to run it in you local machine, the recommendation is to user Docker and docker-compose (if you need to install it on Ubuntu, I suggest [this tutorial](https://linuxize.com/post/how-to-install-and-use-docker-compose-on-ubuntu-18-04/))
 
 You just need to clone or download this repository, navigate into folder, then run the following commands:
 
@@ -19,10 +27,6 @@ You may want have a local superuser, so run the command below and follow instruc
 `$ docker-compose run --rm web python manage.py createsuperuser`
 
 You can use the provided credentials to access the admin interface on `https://localhost:8000/admin/`.
-
-## Documentation && try it out!
-
-You can find a postman collection for the API and do some tests [on this page](https://www.getpostman.com/collections/f31003e88f3a5ae772ca)
 
 Also, you can run unit automated tests running the following command
 
