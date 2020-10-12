@@ -24,7 +24,7 @@ class Equipment(models.Model):
     vessel = models.ForeignKey(Vessel, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'Equipment {self.code} - {self.status.name}'
+        return f'Equipment {self.code} - {self.status}'
 
     def inactivate(self):
         self.status = 'INACTIVE'
