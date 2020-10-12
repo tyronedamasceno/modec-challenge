@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
 
-from api.models import Vessel
+from api.models import Vessel, Equipment
 
 VESSEL_VIEW_URL = reverse('vessels-create')
 EQUIPMENT_VIEW_URL = reverse('equipments-create')
@@ -20,6 +20,24 @@ class VesselViewTestCase(APITestCase):
     def test_successful_creating_vessel_endpoint(self):
         response = self.client.post(VESSEL_VIEW_URL, {'code': 'MV102'})
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_list_active_equipments_needs_valid_code(self):
+        wrong_url = reverse("equipments-by-vessel", args=["banana"])
+        response = self.client.get(wrong_url)
+
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_list_active_equipments_successful(self):
+        vessel = Vessel.objects.create(code="MV102")
+        Equipment.objects.create(code="xpto1", vessel=vessel)
+        eqp2 = Equipment.objects.create(code="xpto2", vessel=vessel)
+        eqp2.inactivate()
+
+        url = reverse("equipments-by-vessel", args=[vessel.code])
+        response = self.client.get(url)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(len(response.data), 1)
 
 
 class EquipmentViewTestCase(APITestCase):
