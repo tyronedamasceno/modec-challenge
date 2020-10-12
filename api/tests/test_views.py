@@ -7,6 +7,7 @@ from api.models import Vessel, Equipment
 
 VESSEL_VIEW_URL = reverse('vessels-create')
 EQUIPMENT_VIEW_URL = reverse('equipments-create')
+EQUIPMENT_INACTIVATE_URL = reverse('equipments-inactivate')
 
 
 class VesselViewTestCase(APITestCase):
@@ -58,3 +59,23 @@ class EquipmentViewTestCase(APITestCase):
         response = self.client.post(EQUIPMENT_VIEW_URL, payload)
 
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def test_equipments_inactivating_require_valid_codes(self):
+        payload = ["banana"]
+        response = self.client.post(
+            EQUIPMENT_INACTIVATE_URL, payload, format='json')
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_successful_inactivating_equipments(self):
+        eqp1 = Equipment.objects.create(code="xpto1", vessel=self.vessel)
+        eqp2 = Equipment.objects.create(code="xpto2", vessel=self.vessel)
+        payload = [eqp1.code, eqp2.code]
+
+        response = self.client.post(
+            EQUIPMENT_INACTIVATE_URL, payload, format='json')
+
+        eqp1.refresh_from_db()
+        eqp2.refresh_from_db()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(eqp1.status, "INACTIVE")
+        self.assertEqual(eqp2.status, "INACTIVE")
